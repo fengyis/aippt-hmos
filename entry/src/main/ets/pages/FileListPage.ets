@@ -1,6 +1,6 @@
-import { AppTitleBar } from '../components/AppTitleBar'
 import { FileListItem } from '../components/FileListItem'
 import { ScanFileBean } from '../model/ScanFileBean'
+import { FileListViewModel } from '../viewmodel/FileListViewModel'
 
 @ObservedV2
 class FileListState {
@@ -14,24 +14,19 @@ class FileListState {
 struct FileListPage {
   @Consumer('navPathStack') navPathStack: NavPathStack = new NavPathStack()
   @Local state: FileListState = new FileListState()
+  @Local fileVM: FileListViewModel = new FileListViewModel()
 
   aboutToAppear(): void {
-    this.scanFiles()
-  }
-
-  scanFiles(): void {
-    this.state.isLoading = true
-    // FWD-REF: P-S05-001 resolve_by=Slice 5 Step 3c — FileScanRepository.scanAll()
-    this.state.isLoading = false
+    this.fileVM.scanAll()
   }
 
   onSearch(keyword: string): void {
     this.state.searchKeyword = keyword
-    // FWD-REF: P-S05-002 resolve_by=Slice 5 Step 3c — FileScanRepository.search(keyword)
+    this.fileVM.search(keyword)
   }
 
   onFileClick(file: ScanFileBean): void {
-    // FWD-REF: P-S05-003 resolve_by=Slice 5 Step 3d — FileConfirmDialog → CreateOutLinePage(filePath, FROM_FILE_IMPORT)
+    this.navPathStack.pushPathByName('CreateOutLinePage', { query: '', filePath: file.filePath, from: 'FROM_FILE_IMPORT' })
   }
 
   build() {
