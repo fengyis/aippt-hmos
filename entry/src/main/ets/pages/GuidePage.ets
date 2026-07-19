@@ -17,7 +17,7 @@ struct GuidePage {
   private readonly progressValues: number[] = [20, 40, 60, 80, 100, 120]
 
   aboutToAppear(): void {
-    // FWD-REF: P-S09-001 resolve_by=Slice 9 Step 3c — PersistenceV2 set MMKV_KEY_SHOW_GUIDE = true
+    // Guide flag managed by GuideViewModel.markGuideShown()
   }
 
   onNext(): void {

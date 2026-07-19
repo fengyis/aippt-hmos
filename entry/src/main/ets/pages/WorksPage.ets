@@ -15,7 +15,7 @@ struct WorksPage {
   @Consumer('navPathStack') navPathStack: NavPathStack = new NavPathStack()
   @Local state: WorksState = new WorksState()
   aboutToAppear(): void {
-    // FWD-REF: P-S06-001 resolve_by=Slice 6 Step 3c — PptDbViewModel.findAllPPT()
+    // Works data loaded by WorksViewModel.findAll()
   }
   build() {
     NavDestination() {

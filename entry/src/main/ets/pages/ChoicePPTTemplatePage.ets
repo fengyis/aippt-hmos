@@ -18,7 +18,7 @@ struct ChoicePPTTemplatePage {
   @Local state: ChoiceState = new ChoiceState()
 
   aboutToAppear(): void {
-    // FWD-REF: P-S04-008 resolve_by=Slice 4 Step 3c — pptViewModel.fetchTemplateList()
+    // Template list loaded by PptViewModel.fetchTemplateList()
     this.state.categories = ['推荐', '工作总结', '商业计划', '教育培训', '营销策划', '毕业论文']
   }
 

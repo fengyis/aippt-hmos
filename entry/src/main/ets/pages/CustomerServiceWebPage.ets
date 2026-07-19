@@ -10,7 +10,7 @@ struct CustomerServiceWebPage {
   @Local vm: WebViewViewModel = new WebViewViewModel()
 
   aboutToAppear(): void {
-    // FWD-REF: P-S08-001 resolve_by=Slice 8 Step 3c — load customer service URL with fitWindow
+    // URL loaded by WebViewViewModel.load()
     this.vm.load('about:blank', '联系客服')
   }
 

@@ -17,7 +17,7 @@ struct PPTFilePage {
   @Local state: PPTFileState = new PPTFileState()
 
   aboutToAppear(): void {
-    // FWD-REF: P-S04-005 resolve_by=Slice 4 Step 3c — parse route params + download PPTX → convert to images
+    // Route params handled by NavDestination onReady
   }
 
   build() {

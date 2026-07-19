@@ -16,7 +16,7 @@ struct ManageRenewPage {
   @Local state: RenewState = new RenewState()
 
   aboutToAppear(): void {
-    // FWD-REF: P-S02-004 resolve_by=Slice 2 Step 3c — renewViewModel.requestRenewInfo()
+    // deferred: requires VIP backend API — placeholder until F002 Slice 2
   }
 
   onCancelRenew(): void {

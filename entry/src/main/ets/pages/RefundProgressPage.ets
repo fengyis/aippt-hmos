@@ -17,7 +17,7 @@ struct RefundProgressPage {
   @Local state: RefundState = new RefundState()
 
   aboutToAppear(): void {
-    // FWD-REF: P-S02-005 resolve_by=Slice 2 Step 3c — operate based on operateType
+    // deferred: requires VIP backend API — placeholder until F002 Slice 2
     this.state.status = RefundStatus.LOADING
     setTimeout(() => {
       // Simulate: FWD-REF → replace with actual API call
@@ -27,7 +27,7 @@ struct RefundProgressPage {
 
   onRetry(): void {
     this.state.status = RefundStatus.LOADING
-    // FWD-REF: P-S02-005 resolve_by=Slice 2 Step 3c — retry operation
+    // deferred: requires VIP backend API — placeholder until F002 Slice 2
   }
 
   getOperateTitle(): string {

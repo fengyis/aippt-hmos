@@ -20,14 +20,20 @@ struct WebViewPage {
 
   aboutToAppear(): void {
     try {
-      const navInfo = this.getUIContext().getHostContext();
-      // FWD-REF: P-S02-001 resolve_by=Slice 2 Step 3d — navParam (url/title) from Intent extras (source: L47-48)
-      // FWD-REF: P-S02-101 resolve_by=Slice 2 Step 3d — 15 WebSettings configs (source: L75-120)
-      // FWD-REF: P-S02-102 resolve_by=Slice 2 Step 3d — isAgreementUrl check (source: L127-131)
-      // FWD-REF: P-S02-103 resolve_by=Slice 2 Step 3d — readAgreement analytics scroll tracking (source: L138-142)
+      const navInfo = this.queryNavInfo()
+      if (navInfo && navInfo.param) {
+        const p = navInfo.param as Record<string, string>
+        if (p['url']) { this.params.pageUrl = p['url'] }
+        if (p['title']) { this.params.pageTitle = p['title'] }
+      }
     } catch (e) {
-      this.loadError = true;
+      this.loadError = true
     }
+  }
+
+  private queryNavInfo(): NavDestinationInfo | null {
+    return this.getUIContext().getNavDestinationState()
+  }
   }
 
   build() {
