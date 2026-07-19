@@ -1,3 +1,5 @@
 .migbot/
 .omc/
 .DS_Store
+.hvigor/
+local.properties

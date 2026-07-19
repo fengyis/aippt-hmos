@@ -1,3 +1,4 @@
+import { webview } from '@kit.ArkWeb'
 import { AppTitleBar } from '../components/AppTitleBar'
 import { WebViewViewModel } from '../viewmodel/WebViewViewModel'
 
@@ -5,7 +6,7 @@ import { WebViewViewModel } from '../viewmodel/WebViewViewModel'
 @ComponentV2
 struct CustomerServiceWebPage {
   @Consumer('navPathStack') navPathStack: NavPathStack = new NavPathStack()
-  webController: WebviewController = new WebviewController()
+  webController: webview.WebviewController = new webview.WebviewController()
   @Local vm: WebViewViewModel = new WebViewViewModel()
 
   aboutToAppear(): void {
