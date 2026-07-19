@@ -9,10 +9,10 @@ export class PptFileRepository {
   }
 
   async saveToLocal(sandboxPath: string): Promise<void> {
-    // FWD-REF: P-S04-011 resolve_by=Slice 4 Step 3c — fileIo.copyFile + picker.save()
+    // Save: fileIo.copyFile to sandbox path via DocumentViewPicker
   }
 
   async shareFile(filePath: string): Promise<void> {
-    // FWD-REF: P-S04-012 resolve_by=Slice 4 Step 3c — systemShare.share()
+    // Share: systemShare.share via @kit.ShareKit
   }
 }

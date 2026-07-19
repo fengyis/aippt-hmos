@@ -4,7 +4,7 @@ import { PptTemplateCard } from '../components/PptTemplateCard'
 @Entry @ComponentV2 struct SearchPage {
   @Consumer('navPathStack') navPathStack: NavPathStack = new NavPathStack()
   @Local state: SearchState = new SearchState()
-  aboutToAppear(): void { /* FWD-REF: P-S04-006 resolve_by=Slice 4 Step 3c — fetchTemplates */ }
+  aboutToAppear(): void { this.pptVM.fetchTemplateList() }
   build() {
     NavDestination() {
       Column() {

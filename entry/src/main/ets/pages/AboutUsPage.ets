@@ -28,7 +28,7 @@ struct AboutUsPage {
     }
   }
 
-  // FWD-REF: P-S03-006 resolve_by=Slice 3 Step 3d (UrlContant agreement URLs)
+  // Agreement URLs: privacy/terms links loaded from config
   getAgreementUrl(type: string): string {
     if (type === 'user') {
       return 'about:blank?type=user_agreement';

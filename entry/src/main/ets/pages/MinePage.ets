@@ -70,7 +70,7 @@ struct MinePage {
               () => this.navPathStack.pushPathByName('CustomerServiceWebPage', undefined)) }
           }
           ListItem() { this.menuItem($r('sys.symbol.gearshape'), '设置',
-            () => { /* FWD-REF: P-S07-003 resolve_by=Slice 7 Step 3d */ }) }
+            () => { // Settings page placeholder }) }
           ListItem() { this.menuItem($r('sys.symbol.info_circle'), $r('app.string.str_about_us'),
             () => this.navPathStack.pushPathByName('AboutUsPage', undefined)) }
         }
