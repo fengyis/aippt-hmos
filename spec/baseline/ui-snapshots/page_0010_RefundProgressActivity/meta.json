@@ -1,0 +1,38 @@
+{
+  "page_id": "page_0010",
+  "label": "退款进度",
+  "activity": "cn.sanfate.pub.platform.page.RefundProgressActivity",
+  "page_type": "full_screen_page",
+  "confidence": "medium",
+  "auto_generated": false,
+  "view_xml_synthesized": true,
+  "layout_sources": [
+    "app/src/main/platform-res/layout/activity_refund_progress.xml"
+  ],
+  "style_sources": [
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "basic/src/main/res/values/colors.xml",
+    "common/src/main/res/values/colors.xml"
+  ],
+  "menu_sources": [],
+  "fragment_tags": {},
+  "recycler_item_layouts": [],
+  "navigation_targets": {
+    "intent_refundprogressactivity": "RefundProgressActivity",
+    "customer_service_dialog": "点击联系客服 → CustomerServiceDialog.show()",
+    "finish_self": "操作完成后关闭当前页"
+  },
+  "clickable_elements": [
+    "tv_retry: 重试操作",
+    "tv_success_operate: 成功后的操作按钮（申请退款/我知道了）",
+    "tv_system_chat: 联系客服"
+  ],
+  "dynamic_menus": {},
+  "bottom_sheet_config": {},
+  "navigation_mode": "SINGLE_PAGE",
+  "came_from": "通过静态方法 RefundProgressActivity.start() 从 ManageRenewActivity 跳入，传入 operateType/renewId/signPrice/vipDes/canRefund",
+  "trigger_element": null,
+  "click_path": [],
+  "description": "退款/取消续费进度页面。根据 operateType (0=取消订阅/1=退款) 展示不同流程。退款流程先弹出 RenewRefundReasonDialog 选原因，确认后调用 RenewManageViewModel.refundRenew()。成功/失败展示对应状态。"
+}

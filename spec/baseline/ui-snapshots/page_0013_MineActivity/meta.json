@@ -1,0 +1,35 @@
+{
+  "page_id": "page_0013",
+  "label": "我的",
+  "activity": "com.aipptzhizuozz.bjh.page.MineActivity",
+  "page_type": "full_screen_page",
+  "confidence": "medium",
+  "auto_generated": false,
+  "view_xml_synthesized": true,
+  "layout_sources": [
+    "app/src/main/res/layout/activity_mine.xml"
+  ],
+  "style_sources": [
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "basic/src/main/res/values/colors.xml",
+    "common/src/main/res/values/colors.xml"
+  ],
+  "menu_sources": [],
+  "fragment_tags": {
+    "content": "MineFragment (我的页面内容)"
+  },
+  "recycler_item_layouts": [],
+  "navigation_targets": {
+    "intent_mineactivity": "MineActivity",
+    "navigate_inside_mine_fragment": "MineFragment 内部包含账号信息、会员中心、续费管理、关于我们等入口，导航由 Fragment 内部控制"
+  },
+  "clickable_elements": [],
+  "dynamic_menus": {},
+  "bottom_sheet_config": {},
+  "navigation_mode": "FRAGMENT_CONTAINER",
+  "came_from": "通过静态方法 MineActivity.openActivity() 从外部 Activity 跳入；或 HomeActivity 底部我的 Tab 切换到 MineFragment 的同内容不同容器场景",
+  "trigger_element": null,
+  "click_path": [],
+  "description": "我的页面容器 Activity，FrameLayout 内嵌 MineFragment(带独立返回箭头模式)。MineFragment 包含用户信息、VIP会员入口、续费管理、退款进度、分享、关于等完整个人中心功能。"
+}

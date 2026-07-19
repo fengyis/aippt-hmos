@@ -1,0 +1,38 @@
+{
+  "page_id": "page_0009",
+  "label": "续费管理",
+  "activity": "cn.sanfate.pub.platform.page.ManageRenewActivity",
+  "page_type": "full_screen_page",
+  "confidence": "medium",
+  "auto_generated": false,
+  "view_xml_synthesized": true,
+  "layout_sources": [
+    "app/src/main/platform-res/layout/activity_renew_manage.xml"
+  ],
+  "style_sources": [
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "basic/src/main/res/values/colors.xml",
+    "common/src/main/res/values/colors.xml"
+  ],
+  "menu_sources": [],
+  "fragment_tags": {},
+  "recycler_item_layouts": [],
+  "navigation_targets": {
+    "intent_managerenewactivity": "ManageRenewActivity",
+    "member_center": "点击购买VIP → MemberCenterActivitiy.openMemberCenter(FROM_RENEW_VIP)",
+    "refund_progress": "点击取消续订/退款 → RefundProgressActivity.start() 传入 operateType/renewId/signPrice 等参数"
+  },
+  "clickable_elements": [
+    "tv_buy_vip: 购买VIP",
+    "tv_cancle_renew: 取消自动续订",
+    "tv_refund_order: 退款订单"
+  ],
+  "dynamic_menus": {},
+  "bottom_sheet_config": {},
+  "navigation_mode": "SINGLE_PAGE",
+  "came_from": "通过静态方法 openRenew() 从外部 FragmentActivity 跳入",
+  "trigger_element": null,
+  "click_path": [],
+  "description": "续费管理页面，展示当前订阅状态（续费中/未续费），根据 signStatus 显示不同 UI。支持购买VIP跳会员中心、取消自动续订、退款操作。使用 RenewManageViewModel 管理续费信息。"
+}

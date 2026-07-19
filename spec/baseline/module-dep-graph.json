@@ -1,0 +1,30 @@
+{
+  "src": "/Users/fengyi/Workspace/fengyis/AIPPT",
+  "stats": {
+    "modules": 1,
+    "files": 113,
+    "cross_module_edges": 0,
+    "shared_models": 0
+  },
+  "modules": {
+    "app": {
+      "root": "app",
+      "gradle_deps": [
+        "basic",
+        "bdConvert",
+        "common",
+        "docviewer",
+        "event-track",
+        "network",
+        "pay"
+      ]
+    }
+  },
+  "module_topo_order": [
+    "app"
+  ],
+  "cross_module_edges": [],
+  "edges_by_module": {},
+  "shared_models": [],
+  "seam_signatures": {}
+}

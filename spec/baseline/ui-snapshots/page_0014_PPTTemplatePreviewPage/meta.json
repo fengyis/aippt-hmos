@@ -1,0 +1,39 @@
+{
+  "page_id": "page_0014",
+  "label": "PPT模板预览",
+  "activity": "com.aipptzhizuozz.bjh.page.PPTTemplatePreviewPage",
+  "page_type": "full_screen_page",
+  "confidence": "medium",
+  "auto_generated": false,
+  "view_xml_synthesized": true,
+  "layout_sources": [
+    "app/src/main/res/layout/page_ppt_template_preview.xml"
+  ],
+  "style_sources": [
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "basic/src/main/res/values/colors.xml",
+    "common/src/main/res/values/colors.xml"
+  ],
+  "menu_sources": [],
+  "fragment_tags": {},
+  "recycler_item_layouts": [
+    "app/src/main/res/layout/item_ppt_cover.xml"
+  ],
+  "navigation_targets": {
+    "intent_ppttemplatepreviewpage": "PPTTemplatePreviewPage",
+    "create_outline": "点击AI生成PPT / 生成PPT → FillPPTQueryDialog 填写内容 → CreateOutLinePage.createOutlinePage()",
+    "preview_file": "PPT生成成功 → PPTFilePage.previewPPTFile() → finish()"
+  },
+  "clickable_elements": [
+    "tv_create_ppt: 从大纲生成PPT",
+    "tv_create_ppt_template: 填写内容后AI生成PPT"
+  ],
+  "dynamic_menus": {},
+  "bottom_sheet_config": {},
+  "navigation_mode": "SINGLE_PAGE",
+  "came_from": "通过静态方法 PPTTemplatePreviewPage.previewTemplate() 从模板选择页/创作页跳入，传入 pptTemplateBean (JSON序列化)、outlineData、query、from 参数",
+  "trigger_element": null,
+  "click_path": [],
+  "description": "PPT模板预览页，展示模板封面列表（RecyclerView + item_ppt_cover 横向线性布局），含步骤指示器（layout_ppt_step include）。底部操作栏：若已有大纲显示「生成PPT」直接创建；若无大纲弹出 FillPPTQueryDialog 填写主题后跳转生成大纲。创建过程显示 PPTCreatingDialog 进度。支持 onNewIntent 处理回退后的继续创建流程。"
+}

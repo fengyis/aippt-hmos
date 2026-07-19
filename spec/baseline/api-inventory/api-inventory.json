@@ -1,0 +1,1089 @@
+{
+  "project": "AIPPT",
+  "platform": "android",
+  "scan_time": "2026-07-19T08:35:22.211958",
+  "source_root": "/Users/fengyi/Workspace/fengyis/AIPPT",
+  "project_profile": {
+    "http_stack": "Retrofit+OkHttp+RxJava",
+    "architecture": "多模块 (app/basic/common/network/pay/push/event-track/aliauth/bdConvert/channel)",
+    "primary_auth": "Token + HMAC-SHA256 自定义签名(sign/ss) + XXTEA 加密(PPT服务专用)",
+    "notes": "所有接口统一 POST + JSON Body; 响应信封 BaseBean(code+msg+data); PPT 服务走独立 IFlytek API 带 XXTEA 加密; 微信/支付宝/华为/荣耀多家三方账号绑定"
+  },
+  "summary": {
+    "total_services": 10,
+    "total_endpoints": 56,
+    "total_third_party_apis": 5,
+    "total_params": 56,
+    "modules": ["app", "basic", "common", "network", "pay", "push", "event-track"]
+  },
+  "base_urls": [
+    {
+      "name": "mHttpUrl (主站 API)",
+      "url": "http://dev-api.whiap.cn",
+      "environment": "development",
+      "source_file": "common/src/main/java/cn/sanfate/pub/common/ContextConstant.kt:102"
+    },
+    {
+      "name": "apiBaseUrl (PPT 生成 API - IFlytek)",
+      "url": "https://zwapi.xfyun.cn",
+      "environment": "production",
+      "source_file": "app/src/main/java/com/aipptzhizuozz/bjh/api/AIPPTService.kt:32"
+    },
+    {
+      "name": "DEFAULT_IMAGE_HOST (图片 CDN)",
+      "url": "https://foc.guiizhen.cn/",
+      "environment": "production",
+      "source_file": "app/src/main/java/cn/sanfate/pub/platform/AppContant.kt:17"
+    }
+  ],
+  "services": [
+    {
+      "name": "AIPPTService",
+      "module": "app",
+      "file_path": "app/src/main/java/com/aipptzhizuozz/bjh/api/AIPPTService.kt",
+      "package": "com.aipptzhizuozz.bjh.api",
+      "base_path": "https://zwapi.xfyun.cn/api/ppt/v2",
+      "auth_type": "Custom",
+      "auth_detail": "IFlytek 开放平台签名: appId + secret + XXTEA 加密请求体, 通过 HeaderMap 注入自定义鉴权 Header",
+      "endpoints": [
+        {
+          "endpoint": "POST /api/ppt/v2/template/list",
+          "static": {
+            "method_name": "requestPptTemplateList",
+            "http_method": "POST",
+            "path": "/api/ppt/v2/template/list",
+            "protocol": "REST",
+            "description": "获取 PPT 模板列表，返回可用的 PPT 模板信息",
+            "is_suspend": false,
+            "is_multipart": false,
+            "line_number": 70,
+            "feature_ids": [],
+            "request": {
+              "content_type": "application/json",
+              "params": [
+                { "name": "headerMap", "type": "MutableMap<String, String>", "annotation": "HeaderMap", "serialized_name": "headerMap", "required": true, "description": "自定义鉴权 Header（含 appId/secret/签名）" },
+                { "name": "requestBody", "type": "RequestBody", "annotation": "Body", "serialized_name": "requestBody", "required": true, "description": "请求体（JSON）" }
+              ]
+            },
+            "response": {
+              "type": "Observable<PptTemplateResBean>",
+              "model_class": "PptTemplateResBean",
+              "fields": [
+                { "json": "unknown", "name": "unknown", "type": "unknown", "description": "Bean 定义位于 app 模块，需读取源码获取字段" }
+              ]
+            }
+          },
+          "runtime": null,
+          "reconciled": null
+        },
+        {
+          "endpoint": "POST /api/ppt/v2/createOutline",
+          "static": {
+            "method_name": "createOutLineByQuery",
+            "http_method": "POST",
+            "path": "/api/ppt/v2/createOutline",
+            "protocol": "REST",
+            "description": "根据自然语言查询词生成 PPT 大纲",
+            "is_suspend": false,
+            "is_multipart": false,
+            "line_number": 79,
+            "feature_ids": [],
+            "request": {
+              "content_type": "application/x-www-form-urlencoded",
+              "params": [
+                { "name": "headerMap", "type": "MutableMap<String, String>", "annotation": "HeaderMap", "serialized_name": "headerMap", "required": true, "description": "自定义鉴权 Header" },
+                { "name": "query", "type": "String", "annotation": "Field", "serialized_name": "query", "required": true, "description": "用户输入的 PPT 主题查询词" }
+              ]
+            },
+            "response": {
+              "type": "Observable<PptOutLineResBean>",
+              "model_class": "PptOutLineResBean",
+              "fields": [
+                { "json": "unknown", "name": "unknown", "type": "unknown", "description": "Bean 定义位于 app 模块，需读取源码获取字段" }
+              ]
+            }
+          },
+          "runtime": null,
+          "reconciled": null
+        },
+        {
+          "endpoint": "POST /api/ppt/v2/createOutlineByDoc",
+          "static": {
+            "method_name": "createOutLineByFile",
+            "http_method": "POST",
+            "path": "/api/ppt/v2/createOutlineByDoc",
+            "protocol": "REST",
+            "description": "上传文档文件生成 PPT 大纲（支持 WORD/PDF 等格式）",
+            "is_suspend": false,
+            "is_multipart": true,
+            "line_number": 90,
+            "feature_ids": [],
+            "request": {
+              "content_type": "multipart/form-data",
+              "params": [
+                { "name": "headerMap", "type": "MutableMap<String, String>", "annotation": "HeaderMap", "serialized_name": "headerMap", "required": true, "description": "自定义鉴权 Header" },
+                { "name": "parts", "type": "List<MultipartBody.Part>", "annotation": "Part", "serialized_name": "parts", "required": true, "description": "文件 multipart 上传体" }
+              ]
+            },
+            "response": {
+              "type": "Observable<PptOutLineResBean>",
+              "model_class": "PptOutLineResBean",
+              "fields": [
+                { "json": "unknown", "name": "unknown", "type": "unknown", "description": "多端点共用 PptOutLineResBean" }
+              ]
+            }
+          },
+          "runtime": null,
+          "reconciled": null
+        },
+        {
+          "endpoint": "POST /api/ppt/v2/createPptByOutline",
+          "static": {
+            "method_name": "createPptByOutLine",
+            "http_method": "POST",
+            "path": "/api/ppt/v2/createPptByOutline",
+            "protocol": "REST",
+            "description": "根据大纲生成完整 PPT",
+            "is_suspend": false,
+            "is_multipart": false,
+            "line_number": 99,
+            "feature_ids": [],
+            "request": {
+              "content_type": "application/json",
+              "params": [
+                { "name": "headerMap", "type": "MutableMap<String, String>", "annotation": "HeaderMap", "serialized_name": "headerMap", "required": true, "description": "自定义鉴权 Header" },
+                { "name": "requestBody", "type": "RequestBody", "annotation": "Body", "serialized_name": "requestBody", "required": true, "description": "大纲数据请求体" }
+              ]
+            },
+            "response": {
+              "type": "Observable<PptResultResBean>",
+              "model_class": "PptResultResBean",
+              "fields": [
+                { "json": "unknown", "name": "unknown", "type": "unknown", "description": "Bean 定义位于 app 模块, 含 sid 字段用于轮询进度" }
+              ]
+            }
+          },
+          "runtime": null,
+          "reconciled": null
+        },
+        {
+          "endpoint": "GET /api/ppt/v2/progress",
+          "static": {
+            "method_name": "queryPptProgress",
+            "http_method": "GET",
+            "path": "/api/ppt/v2/progress",
+            "protocol": "REST",
+            "description": "轮询 PPT 生成进度（异步任务模式: create → poll → result）",
+            "is_suspend": false,
+            "is_multipart": false,
+            "line_number": 105,
+            "feature_ids": [],
+            "request": {
+              "content_type": "application/json",
+              "params": [
+                { "name": "headerMap", "type": "MutableMap<String, String>", "annotation": "HeaderMap", "serialized_name": "headerMap", "required": true, "description": "自定义鉴权 Header" },
+                { "name": "sid", "type": "String", "annotation": "Query", "serialized_name": "sid", "required": true, "description": "PPT 任务 ID" }
+              ]
+            },
+            "response": {
+              "type": "Observable<PptProgressResBean>",
+              "model_class": "PptProgressResBean",
+              "fields": [
+                { "json": "unknown", "name": "unknown", "type": "unknown", "description": "Bean 定义位于 app 模块, 含 progress/status 字段" }
+              ]
+            }
+          },
+          "runtime": null,
+          "reconciled": null
+        }
+      ]
+    },
+    {
+      "name": "UserApiService",
+      "module": "network",
+      "file_path": "network/src/main/java/cn/sanfate/pub/network/api/UserApiService.kt",
+      "package": "cn.sanfate.pub.network.api",
+      "base_path": "/user",
+      "auth_type": "Token",
+      "auth_detail": "Token 认证 + 自定义签名 Header (ss/tt)。通过 Interceptor 自动注入",
+      "endpoints": [
+        {
+          "endpoint": "POST /user/initUser",
+          "static": {
+            "method_name": "initUser", "http_method": "POST", "path": "/user/initUser", "protocol": "REST",
+            "description": "初始化用户，首次启动时调用创建用户档案",
+            "is_suspend": false, "is_multipart": false, "line_number": 16, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "用户初始化信息 + 公共参数(platformInfo)" }
+            ]},
+            "response": { "type": "Observable<UserData>", "model_class": "UserData", "fields": [
+              { "json": "token", "name": "token", "type": "String", "description": "登录 Token" },
+              { "json": "userId", "name": "userId", "type": "String", "description": "用户 ID" },
+              { "json": "username", "name": "username", "type": "String", "description": "用户名" },
+              { "json": "thirdPartyAuth", "name": "thirdPartyAuth", "type": "Object", "description": "三方认证信息" },
+              { "json": "vipLevel", "name": "vipLevel", "type": "Int", "description": "VIP 等级" }
+            ]}
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /user/bindAli",
+          "static": {
+            "method_name": "bindAli", "http_method": "POST", "path": "/user/bindAli", "protocol": "REST",
+            "description": "绑定支付宝账号",
+            "is_suspend": false, "is_multipart": false, "line_number": 22, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "支付宝授权信息" }
+            ]},
+            "response": { "type": "Observable<UserData>", "model_class": "UserData", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /user/bindMobileBySmsCode",
+          "static": {
+            "method_name": "bindMobile", "http_method": "POST", "path": "/user/bindMobileBySmsCode", "protocol": "REST",
+            "description": "通过短信验证码绑定手机号",
+            "is_suspend": false, "is_multipart": false, "line_number": 28, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "手机号 + 短信验证码" }
+            ]},
+            "response": { "type": "Observable<UserData>", "model_class": "UserData", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /user/bindWx",
+          "static": {
+            "method_name": "bindWx", "http_method": "POST", "path": "/user/bindWx", "protocol": "REST",
+            "description": "绑定微信账号",
+            "is_suspend": false, "is_multipart": false, "line_number": 34, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "微信 OAuth 授权码" }
+            ]},
+            "response": { "type": "Observable<UserData>", "model_class": "UserData", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /user/getInfo",
+          "static": {
+            "method_name": "getInfo", "http_method": "POST", "path": "/user/getInfo", "protocol": "REST",
+            "description": "获取当前用户信息",
+            "is_suspend": false, "is_multipart": false, "line_number": 40, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "请求体（含公共参数）" }
+            ]},
+            "response": { "type": "Observable<UserData>", "model_class": "UserData", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /user/closeAccount",
+          "static": {
+            "method_name": "closeAccount", "http_method": "POST", "path": "/user/closeAccount", "protocol": "REST",
+            "description": "注销账号",
+            "is_suspend": false, "is_multipart": false, "line_number": 46, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "注销确认信息" }
+            ]},
+            "response": { "type": "Observable<UserData>", "model_class": "UserData", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /user/logout",
+          "static": {
+            "method_name": "logout", "http_method": "POST", "path": "/user/logout", "protocol": "REST",
+            "description": "退出登录",
+            "is_suspend": false, "is_multipart": false, "line_number": 52, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "退出请求体" }
+            ]},
+            "response": { "type": "Observable<UserData>", "model_class": "UserData", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /user/bindHonor",
+          "static": {
+            "method_name": "bindHonor", "http_method": "POST", "path": "/user/bindHonor", "protocol": "REST",
+            "description": "绑定荣耀账号",
+            "is_suspend": false, "is_multipart": false, "line_number": 58, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "荣耀授权信息" }
+            ]},
+            "response": { "type": "Observable<UserData>", "model_class": "UserData", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /user/bindHuawei",
+          "static": {
+            "method_name": "bindHuawei", "http_method": "POST", "path": "/user/bindHuawei", "protocol": "REST",
+            "description": "绑定华为账号",
+            "is_suspend": false, "is_multipart": false, "line_number": 64, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "华为授权信息" }
+            ]},
+            "response": { "type": "Observable<UserData>", "model_class": "UserData", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /user/bindMobileByToken",
+          "static": {
+            "method_name": "bindMobileByToken", "http_method": "POST", "path": "/user/bindMobileByToken", "protocol": "REST",
+            "description": "通过运营商 Token 一键绑定手机号（阿里/华为一键登录）",
+            "is_suspend": false, "is_multipart": false, "line_number": 70, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "运营商 Token" }
+            ]},
+            "response": { "type": "Observable<UserData>", "model_class": "UserData", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /system/needCheckPackage",
+          "static": {
+            "method_name": "getPackageList", "http_method": "POST", "path": "/system/needCheckPackage", "protocol": "REST",
+            "description": "检查应用安装列表是否需要上报（安全风控）",
+            "is_suspend": false, "is_multipart": false, "line_number": 76, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "设备信息" }
+            ]},
+            "response": { "type": "Observable<PackageListBean>", "model_class": "PackageListBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /system/upInstalledApp",
+          "static": {
+            "method_name": "uploadAppList", "http_method": "POST", "path": "/system/upInstalledApp", "protocol": "REST",
+            "description": "上报已安装应用列表（安全风控）",
+            "is_suspend": false, "is_multipart": false, "line_number": 82, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "应用列表 JSON" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [
+              { "json": "code", "name": "code", "type": "Int", "description": "业务状态码" },
+              { "json": "msg", "name": "msg", "type": "String", "description": "提示信息" },
+              { "json": "data", "name": "data", "type": "Object", "description": "业务数据体" }
+            ]}
+          },
+          "runtime": null, "reconciled": null
+        }
+      ]
+    },
+    {
+      "name": "PayApiService",
+      "module": "pay",
+      "file_path": "pay/src/main/java/cn/sanfate/pub/loginpay/service/PayApiService.kt",
+      "package": "cn.sanfate.pub.loginpay.service",
+      "base_path": "/pay",
+      "auth_type": "Token",
+      "auth_detail": "Token 认证，订单操作需要用户登录态",
+      "endpoints": [
+        {
+          "endpoint": "POST /product/list",
+          "static": {
+            "method_name": "paymentInfo", "http_method": "POST", "path": "/product/list", "protocol": "REST",
+            "description": "获取 VIP 产品/套餐列表",
+            "is_suspend": false, "is_multipart": false, "line_number": 20, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "产品查询条件" }
+            ]},
+            "response": { "type": "Observable<PaymentBean>", "model_class": "PaymentBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /pay/order/preCreate",
+          "static": {
+            "method_name": "createOrder", "http_method": "POST", "path": "/pay/order/preCreate", "protocol": "REST",
+            "description": "预创建支付订单",
+            "is_suspend": false, "is_multipart": false, "line_number": 26, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "产品 ID + 支付渠道 + 来源场景" }
+            ]},
+            "response": { "type": "Observable<OrderInfoBean>", "model_class": "OrderInfoBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /pay/order/cancelPayment",
+          "static": {
+            "method_name": "cancelPayment", "http_method": "POST", "path": "/pay/order/cancelPayment", "protocol": "REST",
+            "description": "取消支付订单",
+            "is_suspend": false, "is_multipart": false, "line_number": 32, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "订单 ID" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /pay/order/startUpPayError",
+          "static": {
+            "method_name": "startUpPayError", "http_method": "POST", "path": "/pay/order/startUpPayError", "protocol": "REST",
+            "description": "上报启动支付失败错误",
+            "is_suspend": false, "is_multipart": false, "line_number": 38, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "错误信息 + 订单 ID" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /product/productFloat",
+          "static": {
+            "method_name": "productFloat", "http_method": "POST", "path": "/product/productFloat", "protocol": "REST",
+            "description": "获取 VIP 悬浮活动信息（限时优惠浮窗）",
+            "is_suspend": false, "is_multipart": false, "line_number": 44, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "设备信息 + 用户状态" }
+            ]},
+            "response": { "type": "Observable<VipFloatBean>", "model_class": "VipFloatBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /pay/order/getSignStatus",
+          "static": {
+            "method_name": "renewStatus", "http_method": "POST", "path": "/pay/order/getSignStatus", "protocol": "REST",
+            "description": "查询自动续费签约状态",
+            "is_suspend": false, "is_multipart": false, "line_number": 51, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "用户 ID" }
+            ]},
+            "response": { "type": "Observable<RenewSettingBean>", "model_class": "RenewSettingBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /pay/order/unSign",
+          "static": {
+            "method_name": "cancelRenew", "http_method": "POST", "path": "/pay/order/unSign", "protocol": "REST",
+            "description": "取消自动续费签约",
+            "is_suspend": false, "is_multipart": false, "line_number": 58, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "续费签约 ID" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /pay/order/refundPeriodOrder",
+          "static": {
+            "method_name": "refundRenew", "http_method": "POST", "path": "/pay/order/refundPeriodOrder", "protocol": "REST",
+            "description": "申请续费订单退款",
+            "is_suspend": false, "is_multipart": false, "line_number": 65, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "订单 ID" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /system/aliAuthUrl",
+          "static": {
+            "method_name": "getAliAuthUrl", "http_method": "POST", "path": "/system/aliAuthUrl", "protocol": "REST",
+            "description": "获取支付宝授权 URL（用于跳转支付宝授权页）",
+            "is_suspend": false, "is_multipart": false, "line_number": 71, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "用户 ID + 回调参数" }
+            ]},
+            "response": { "type": "Observable<AliAuthUrlBean>", "model_class": "AliAuthUrlBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /pay/super/fastRefundOrder",
+          "static": {
+            "method_name": "fastRefundOrder", "http_method": "POST", "path": "/pay/super/fastRefundOrder", "protocol": "REST",
+            "description": "超级权限：快速退款",
+            "is_suspend": false, "is_multipart": false, "line_number": 77, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "订单 ID" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /pay/super/fastUnSign",
+          "static": {
+            "method_name": "fastUnSign", "http_method": "POST", "path": "/pay/super/fastUnSign", "protocol": "REST",
+            "description": "超级权限：快速取消签约",
+            "is_suspend": false, "is_multipart": false, "line_number": 83, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "签约 ID" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /product/coinList",
+          "static": {
+            "method_name": "getCoinList", "http_method": "POST", "path": "/product/coinList", "protocol": "REST",
+            "description": "获取金币充值套餐列表",
+            "is_suspend": false, "is_multipart": false, "line_number": 89, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "查询条件" }
+            ]},
+            "response": { "type": "Observable<PaymentBean>", "model_class": "PaymentBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /pay/order/queryOrderStatus",
+          "static": {
+            "method_name": "queryOrderStatus", "http_method": "POST", "path": "/pay/order/queryOrderStatus", "protocol": "REST",
+            "description": "查询订单支付状态（用于支付结果轮询）",
+            "is_suspend": false, "is_multipart": false, "line_number": 102, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "订单 ID" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        }
+      ]
+    },
+    {
+      "name": "AppApiService",
+      "module": "network",
+      "file_path": "network/src/main/java/cn/sanfate/pub/event/track/api/AppApiService.kt",
+      "package": "cn.sanfate.pub.event.track.api",
+      "base_path": "/app",
+      "auth_type": "Token",
+      "auth_detail": "Token 认证；大部分为事件上报类接口，失败不影响主流程",
+      "endpoints": [
+        {
+          "endpoint": "POST /app/config",
+          "static": {
+            "method_name": "getConfig", "http_method": "POST", "path": "/app/config", "protocol": "REST",
+            "description": "获取应用远程配置（审核状态/广告开关等）",
+            "is_suspend": false, "is_multipart": false, "line_number": 20, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "设备信息 + 版本号" }
+            ]},
+            "response": { "type": "Observable<AppconfigBean>", "model_class": "AppconfigBean", "fields": [
+              { "json": "appLogSwitch", "name": "appLogSwitch", "type": "Int", "description": "日志开关" },
+              { "json": "auditingStatus", "name": "auditingStatus", "type": "Int", "description": "审核状态" }
+            ]}
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /app/firstStart",
+          "static": {
+            "method_name": "firstStart", "http_method": "POST", "path": "/app/firstStart", "protocol": "REST",
+            "description": "上报应用首次启动事件",
+            "is_suspend": false, "is_multipart": false, "line_number": 26, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "设备指纹 + 安装来源" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /app/appList",
+          "static": {
+            "method_name": "uploadAppList", "http_method": "POST", "path": "/app/appList", "protocol": "REST",
+            "description": "上报已安装应用列表",
+            "is_suspend": false, "is_multipart": false, "line_number": 32, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "应用包名列表" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /app/upOaid",
+          "static": {
+            "method_name": "uploadOaid", "http_method": "POST", "path": "/app/upOaid", "protocol": "REST",
+            "description": "上报 OAID 设备标识",
+            "is_suspend": false, "is_multipart": false, "line_number": 38, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "OAID 值" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /app/appLog",
+          "static": {
+            "method_name": "appLog", "http_method": "POST", "path": "/app/appLog", "protocol": "REST",
+            "description": "上报应用行为日志",
+            "is_suspend": false, "is_multipart": false, "line_number": 44, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "事件日志 JSON" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /app/privacyAgreement",
+          "static": {
+            "method_name": "pricacyAgreement", "http_method": "POST", "path": "/app/privacyAgreement", "protocol": "REST",
+            "description": "上报用户隐私协议同意状态",
+            "is_suspend": false, "is_multipart": false, "line_number": 50, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "同意/拒绝 + 设备信息" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /app/readAgreement",
+          "static": {
+            "method_name": "readAgreement", "http_method": "POST", "path": "/app/readAgreement", "protocol": "REST",
+            "description": "上报用户已阅读协议",
+            "is_suspend": false, "is_multipart": false, "line_number": 56, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "协议类型 + 设备信息" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /ad/up",
+          "static": {
+            "method_name": "adEventUpload", "http_method": "POST", "path": "/ad/up", "protocol": "REST",
+            "description": "上报广告事件",
+            "is_suspend": false, "is_multipart": false, "line_number": 62, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "广告事件数据" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /privacy/getFreeCount",
+          "static": {
+            "method_name": "freeCount", "http_method": "POST", "path": "/privacy/getFreeCount", "protocol": "REST",
+            "description": "获取免费使用次数",
+            "is_suspend": false, "is_multipart": false, "line_number": 74, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "用户 ID" }
+            ]},
+            "response": { "type": "Observable<FreeCountBean>", "model_class": "FreeCountBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /privacy/useCount",
+          "static": {
+            "method_name": "useCount", "http_method": "POST", "path": "/privacy/useCount", "protocol": "REST",
+            "description": "消耗一次免费使用次数",
+            "is_suspend": false, "is_multipart": false, "line_number": 80, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "用户 ID + 功能类型" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /ad/upHideAdReason",
+          "static": {
+            "method_name": "upHideAdReason", "http_method": "POST", "path": "/ad/upHideAdReason", "protocol": "REST",
+            "description": "上报隐藏广告的原因",
+            "is_suspend": false, "is_multipart": false, "line_number": 86, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "隐藏原因 + 广告 ID" }
+            ]},
+            "response": { "type": "Observable<AppconfigBean>", "model_class": "AppconfigBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /system/arrival",
+          "static": {
+            "method_name": "arrival", "http_method": "POST", "path": "/system/arrival", "protocol": "REST",
+            "description": "用户到达事件上报（app 启动后到达首页）",
+            "is_suspend": false, "is_multipart": false, "line_number": 92, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "设备信息 + 用户状态" }
+            ]},
+            "response": { "type": "Observable<UserConfig>", "model_class": "UserConfig", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /system/sendSmsCode",
+          "static": {
+            "method_name": "sendSmsCode", "http_method": "POST", "path": "/system/sendSmsCode", "protocol": "REST",
+            "description": "发送短信验证码",
+            "is_suspend": false, "is_multipart": false, "line_number": 98, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "手机号" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /push/getuiCid",
+          "static": {
+            "method_name": "getuiCid", "http_method": "POST", "path": "/push/getuiCid", "protocol": "REST",
+            "description": "上报个推推送 ClientId",
+            "is_suspend": false, "is_multipart": false, "line_number": 104, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "个推 CID" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        }
+      ]
+    },
+    {
+      "name": "CoinIonApiService",
+      "module": "network",
+      "file_path": "network/src/main/java/cn/sanfate/pub/network/api/CoinTools.kt",
+      "package": "cn.sanfate.pub.network.api",
+      "base_path": "/",
+      "auth_type": "Token",
+      "auth_detail": "Token 认证",
+      "endpoints": [
+        {
+          "endpoint": "POST /productComm/coinPrice",
+          "static": {
+            "method_name": "getCoinIon", "http_method": "POST", "path": "/productComm/coinPrice", "protocol": "REST",
+            "description": "获取金币价格列表",
+            "is_suspend": true, "is_multipart": false, "line_number": 24, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "查询条件" }
+            ]},
+            "response": { "type": "CoinIonListBean", "model_class": "CoinIonListBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /asset/deductCoinV2",
+          "static": {
+            "method_name": "deductCoinV2", "http_method": "POST", "path": "/asset/deductCoinV2", "protocol": "REST",
+            "description": "扣除金币（V2版本）",
+            "is_suspend": false, "is_multipart": false, "line_number": 30, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "用户 ID + 扣除数量 + 功能类型" }
+            ]},
+            "response": { "type": "Observable<BillBean>", "model_class": "BillBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /asset/refundCoin",
+          "static": {
+            "method_name": "refundCoin", "http_method": "POST", "path": "/asset/refundCoin", "protocol": "REST",
+            "description": "退还金币",
+            "is_suspend": false, "is_multipart": false, "line_number": 36, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "用户 ID + 退还数量 + 订单 ID" }
+            ]},
+            "response": { "type": "Observable<BillBean>", "model_class": "BillBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        }
+      ]
+    },
+    {
+      "name": "FreeCountV2ApiService",
+      "module": "network",
+      "file_path": "network/src/main/java/cn/sanfate/pub/network/api/FreeCountV2ApiService.kt",
+      "package": "cn.sanfate.pub.network.api",
+      "base_path": "/productComm",
+      "auth_type": "Token",
+      "auth_detail": "Token 认证",
+      "endpoints": [
+        {
+          "endpoint": "POST /productComm/getFreeCountV2",
+          "static": {
+            "method_name": "getFreeCountV2", "http_method": "POST", "path": "/productComm/getFreeCountV2", "protocol": "REST",
+            "description": "获取免费次数配额（V2版本）",
+            "is_suspend": true, "is_multipart": false, "line_number": 23, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "用户 ID + 功能类型" }
+            ]},
+            "response": { "type": "CountConfigListBean", "model_class": "CountConfigListBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /productComm/useFreeCountV2",
+          "static": {
+            "method_name": "useFreeCountV2", "http_method": "POST", "path": "/productComm/useFreeCountV2", "protocol": "REST",
+            "description": "消耗一次免费配额（V2版本）",
+            "is_suspend": false, "is_multipart": false, "line_number": 29, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "用户 ID + 功能类型 + 消耗场景" }
+            ]},
+            "response": { "type": "Observable<CountConfigBean>", "model_class": "CountConfigBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        }
+      ]
+    },
+    {
+      "name": "AntiCheatCheckSevice",
+      "module": "network",
+      "file_path": "network/src/main/java/cn/sanfate/pub/network/api/AntiCheatCheckSevice.kt",
+      "package": "cn.sanfate.pub.network.api",
+      "base_path": "/anti",
+      "auth_type": "Token",
+      "auth_detail": "Token 认证",
+      "endpoints": [
+        {
+          "endpoint": "POST /anti/textCheat",
+          "static": {
+            "method_name": "textCheat", "http_method": "POST", "path": "/anti/textCheat", "protocol": "REST",
+            "description": "文本内容反作弊检测",
+            "is_suspend": true, "is_multipart": false, "line_number": 18, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "文本内容 + 用户 ID" }
+            ]},
+            "response": { "type": "AntiTextCheatBean", "model_class": "AntiTextCheatBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /anti/imageCheat",
+          "static": {
+            "method_name": "imageCheat", "http_method": "POST", "path": "/anti/imageCheat", "protocol": "REST",
+            "description": "图片内容反作弊检测",
+            "is_suspend": true, "is_multipart": false, "line_number": 21, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "图片 URI + 用户 ID" }
+            ]},
+            "response": { "type": "AntiTextCheatBean", "model_class": "AntiTextCheatBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /anti/videoCheat",
+          "static": {
+            "method_name": "videoCheat", "http_method": "POST", "path": "/anti/videoCheat", "protocol": "REST",
+            "description": "视频内容反作弊检测",
+            "is_suspend": true, "is_multipart": false, "line_number": 24, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "视频 URI + 用户 ID" }
+            ]},
+            "response": { "type": "AntiTextCheatBean", "model_class": "AntiTextCheatBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        }
+      ]
+    },
+    {
+      "name": "PushApiService",
+      "module": "push",
+      "file_path": "push/src/main/java/cn/sanfate/pub/push/sdk/api/PushApiService.kt",
+      "package": "cn.sanfate.pub.push.sdk.api",
+      "base_path": "/",
+      "auth_type": "Token",
+      "auth_detail": "Token 认证",
+      "endpoints": [
+        {
+          "endpoint": "POST /push/getuiCid",
+          "static": {
+            "method_name": "uploadGtClientId", "http_method": "POST", "path": "/push/getuiCid", "protocol": "REST",
+            "description": "上报个推推送 ClientId（PushApiService 重复定义，与 AppApiService.getuiCid 同路径）",
+            "is_suspend": false, "is_multipart": false, "line_number": 14, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "个推 CID" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        },
+        {
+          "endpoint": "POST /app/getuiReport",
+          "static": {
+            "method_name": "uploadPushStrategy", "http_method": "POST", "path": "/app/getuiReport", "protocol": "REST",
+            "description": "上报推送策略执行结果",
+            "is_suspend": false, "is_multipart": false, "line_number": 20, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "body", "type": "RequestBody", "annotation": "Body", "serialized_name": "body", "required": true, "description": "推送策略执行结果数据" }
+            ]},
+            "response": { "type": "Observable<BaseBean>", "model_class": "BaseBean", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        }
+      ]
+    },
+    {
+      "name": "AlgorithmFilingService",
+      "module": "basic",
+      "file_path": "basic/src/main/java/cn/sanfate/pub/baseui/service/AlgorithmFilingService.kt",
+      "package": "cn.sanfate.pub.baseui.service",
+      "base_path": "/app",
+      "auth_type": "Token",
+      "auth_detail": "Token 认证",
+      "endpoints": [
+        {
+          "endpoint": "POST /app/getAlgorithmFiling",
+          "static": {
+            "method_name": "getAlgorithmFilingList", "http_method": "POST", "path": "/app/getAlgorithmFiling", "protocol": "REST",
+            "description": "获取算法备案列表（合规展示）",
+            "is_suspend": true, "is_multipart": false, "line_number": 11, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [
+              { "name": "request", "type": "RequestBody", "annotation": "Body", "serialized_name": "request", "required": true, "description": "空请求体" }
+            ]},
+            "response": { "type": "AlgorithmFilingResponse", "model_class": "AlgorithmFilingResponse", "fields": [] }
+          },
+          "runtime": null, "reconciled": null
+        }
+      ]
+    },
+    {
+      "name": "CheckUpdateService",
+      "module": "basic",
+      "file_path": "basic/src/main/java/cn/sanfate/pub/baseui/utils/CheckUpdateUtil.kt",
+      "package": "cn.sanfate.pub.baseui.utils",
+      "base_path": "/app",
+      "auth_type": "Token",
+      "auth_detail": "Token 认证",
+      "endpoints": [
+        {
+          "endpoint": "POST /app/checkVersion",
+          "static": {
+            "method_name": "checkVersion", "http_method": "POST", "path": "/app/checkVersion", "protocol": "REST",
+            "description": "检查应用版本更新",
+            "is_suspend": true, "is_multipart": false, "line_number": 23, "feature_ids": [],
+            "request": { "content_type": "application/json", "params": [] },
+            "response": { "type": "CheckVersionBean", "model_class": "CheckVersionBean", "fields": [
+              { "json": "unknown", "name": "unknown", "type": "unknown", "description": "版本更新信息（新版本号/下载地址/强制更新标记）" }
+            ]}
+          },
+          "runtime": null, "reconciled": null
+        }
+      ]
+    }
+  ],
+  "third_party_apis": [
+    {
+      "provider": "讯飞 (iFlytek) PPT 生成 API",
+      "domain": "zwapi.xfyun.cn",
+      "protocol": "REST",
+      "auth_type": "Custom",
+      "auth_detail": "appId + secret + XXTEA 加密签名, 通过 HeaderMap 注入",
+      "endpoints": [
+        { "description": "PPT 模板列表", "http_method": "POST", "full_url": "https://zwapi.xfyun.cn/api/ppt/v2/template/list", "feature_ids": [] },
+        { "description": "根据查询词生成 PPT 大纲", "http_method": "POST", "full_url": "https://zwapi.xfyun.cn/api/ppt/v2/createOutline", "feature_ids": [] },
+        { "description": "上传文档生成 PPT 大纲", "http_method": "POST", "full_url": "https://zwapi.xfyun.cn/api/ppt/v2/createOutlineByDoc", "feature_ids": [] },
+        { "description": "根据大纲生成 PPT", "http_method": "POST", "full_url": "https://zwapi.xfyun.cn/api/ppt/v2/createPptByOutline", "feature_ids": [] },
+        { "description": "轮询 PPT 生成进度", "http_method": "GET", "full_url": "https://zwapi.xfyun.cn/api/ppt/v2/progress", "feature_ids": [] }
+      ]
+    },
+    {
+      "provider": "微信 Open Platform",
+      "domain": "api.weixin.qq.com",
+      "protocol": "REST",
+      "auth_type": "OAuth2",
+      "auth_detail": "微信 OAuth2 authorization_code 流程: 获取 access_token",
+      "endpoints": [
+        { "description": "微信 OAuth2 获取 access_token", "http_method": "GET", "full_url": "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code", "feature_ids": [] }
+      ]
+    },
+    {
+      "provider": "火山引擎埋点 (Volcano Engine Analytics)",
+      "domain": "gator.volces.com",
+      "protocol": "REST",
+      "auth_type": "API-Key",
+      "auth_detail": "火山引擎埋点上报 SDK，通过 UriConfig 配置",
+      "endpoints": [
+        { "description": "埋点数据上报", "http_method": "POST", "full_url": "https://gator.volces.com", "feature_ids": [] }
+      ]
+    },
+    {
+      "provider": "图片 CDN",
+      "domain": "foc.guiizhen.cn",
+      "protocol": "REST",
+      "auth_type": "None",
+      "auth_detail": "公开图片托管 CDN",
+      "endpoints": [
+        { "description": "图片资源 CDN 基地址", "http_method": "GET", "full_url": "https://foc.guiizhen.cn/", "feature_ids": [] }
+      ]
+    },
+    {
+      "provider": "主站业务 API",
+      "domain": "dev-api.whiap.cn",
+      "protocol": "REST",
+      "auth_type": "Token + HMAC-SHA256 签名",
+      "auth_detail": "Token 认证 + 自定义签名 Header (ss/tt) + platformInfo 公共参数",
+      "endpoints": [
+        { "description": "所有 /user/* /pay/* /product/* /app/* /system/* /push/* /anti/* /ad/* /asset/* /productComm/* /privacy/* 端点", "http_method": "POST", "full_url": "http://dev-api.whiap.cn/*", "feature_ids": [] }
+      ]
+    }
+  ],
+  "coverage": {
+    "_mode": "candidate",
+    "spec_documented": 0,
+    "inventory_found": 56,
+    "gaps": [],
+    "feature_candidates": [
+      {
+        "suggested_id": "F-user",
+        "suggested_name": "用户认证与账号",
+        "path_prefixes": ["/user/", "/system/sendSmsCode", "/system/arrival"],
+        "endpoint_count": 13,
+        "third_party_deps": ["WeChat OAuth", "AliPay Auth", "Huawei Account", "Honor Account"],
+        "migration_concerns": ["多家三方账号绑定(微信/支付宝/华为/荣耀)认证流程不同", "运营商一键登录 Token 流程", "Gson @SerializedName → ArkTS 无等价机制需手写字段映射"]
+      },
+      {
+        "suggested_id": "F-pay",
+        "suggested_name": "VIP 支付与订阅",
+        "path_prefixes": ["/pay/", "/product/"],
+        "endpoint_count": 13,
+        "third_party_deps": ["支付宝支付", "微信支付", "华为支付", "荣耀支付", "OPPO 支付"],
+        "migration_concerns": ["订单轮询 queryOrderStatus", "自动续费签约/取消/退款流程", "多家支付渠道(支付宝/微信/华为/荣耀/OPPO) SDK 适配", "微信 H5 支付兜底方案"]
+      },
+      {
+        "suggested_id": "F-coin",
+        "suggested_name": "金币经济与免费配额",
+        "path_prefixes": ["/asset/", "/productComm/", "/privacy/"],
+        "endpoint_count": 7,
+        "third_party_deps": [],
+        "migration_concerns": ["金币扣除+退款幂等性", "免费配额 V1/V2 两套并存需统一"]
+      },
+      {
+        "suggested_id": "F-aippt",
+        "suggested_name": "AI PPT 生成",
+        "path_prefixes": ["/api/ppt/v2/"],
+        "endpoint_count": 5,
+        "third_party_deps": ["讯飞 (iFlytek) PPT API"],
+        "migration_concerns": ["XXTEA 加密算法移植(需 CryptoArchitectureKit 自实现)", "异步任务模式(create→poll→result)", "Multipart 文件上传", "自定义签名 Header 注入"]
+      },
+      {
+        "suggested_id": "F-app",
+        "suggested_name": "应用框架与配置",
+        "path_prefixes": ["/app/", "/system/", "/ad/"],
+        "endpoint_count": 14,
+        "third_party_deps": ["火山引擎埋点"],
+        "migration_concerns": ["OAID 设备标识获取(HMOS 需 APP_TRACKING_CONSENT 权限)", "应用安装列表收集(安全风控, HMOS 受限)", "火山引擎埋点 SDK 需联系厂商适配", "个推推送 SDK 需鸿蒙版"]
+      },
+      {
+        "suggested_id": "F-anti",
+        "suggested_name": "内容反作弊",
+        "path_prefixes": ["/anti/"],
+        "endpoint_count": 3,
+        "third_party_deps": [],
+        "migration_concerns": ["文本/图片/视频三类检测, HMOS 端需对接相同后端"]
+      }
+    ]
+  }
+}

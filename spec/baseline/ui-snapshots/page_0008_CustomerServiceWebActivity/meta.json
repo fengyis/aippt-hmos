@@ -1,0 +1,34 @@
+{
+  "page_id": "page_0008",
+  "label": "客服页面",
+  "activity": "cn.sanfate.pub.platform.page.CustomerServiceWebActivity",
+  "page_type": "full_screen_page",
+  "confidence": "medium",
+  "auto_generated": false,
+  "view_xml_synthesized": true,
+  "layout_sources": [
+    "app/src/main/platform-res/layout/activity_webview_customer_service.xml"
+  ],
+  "style_sources": [
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "basic/src/main/res/values/colors.xml",
+    "common/src/main/res/values/colors.xml"
+  ],
+  "menu_sources": [],
+  "fragment_tags": {},
+  "recycler_item_layouts": [],
+  "navigation_targets": {
+    "intent_customerservicewebactivity": "CustomerServiceWebActivity",
+    "finish_self": "关闭当前页返回上一页",
+    "open_web_page": "通过静态方法 openWebPage() 从外部任意 Activity 跳入，传入 url/title/fitWindow 参数"
+  },
+  "clickable_elements": [],
+  "dynamic_menus": {},
+  "bottom_sheet_config": {},
+  "navigation_mode": "SINGLE_PAGE",
+  "came_from": "任意发起客服页面的入口（通过 openWebPage 静态方法）",
+  "trigger_element": null,
+  "click_path": [],
+  "description": "WebView 承载的客服页面。加载外部 URL，支持 JavaScript 交互（WebAppInterface 桥接），支持文件上传（系统文件选择器），受沉浸式状态栏控制（fitWindow 参数）。"
+}

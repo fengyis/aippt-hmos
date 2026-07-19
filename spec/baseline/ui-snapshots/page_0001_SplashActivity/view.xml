@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hierarchy rotation="0" synthesized="true">
+  <node index="0" class="android.widget.layout" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0">
+    <node index="0" class="androidx.constraintlayout.widget.ConstraintLayout" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0">
+      <node index="0" class="android.widget.LinearLayout" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0">
+        <node index="0" class="android.widget.TextView" resource-id="" text="PPT引擎启动中..." content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+        <node index="1" class="android.widget.ProgressBar" resource-id="com.aipptzhizuozz.bjh:id/pb_splash" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" style-ref="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+      </node>
+      <node index="1" class="android.widget.LinearLayout" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0">
+        <node index="0" class="android.widget.ImageView" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+        <node index="1" class="android.widget.TextView" resource-id="" text-ref="@string/appName" text="@string/appName" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+      </node>
+      <node index="2" class="android.widget.FrameLayout" resource-id="com.aipptzhizuozz.bjh:id/layout_splash_ad" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+    </node>
+  </node>
+</hierarchy>

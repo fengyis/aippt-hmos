@@ -1,0 +1,43 @@
+{
+  "page_id": "page_0012",
+  "label": "引导页",
+  "activity": "com.aipptzhizuozz.bjh.page.GuideActivity",
+  "page_type": "full_screen_page",
+  "confidence": "medium",
+  "auto_generated": false,
+  "view_xml_synthesized": true,
+  "layout_sources": [
+    "app/src/main/res/layout/activity_guide.xml"
+  ],
+  "style_sources": [
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "basic/src/main/res/values/colors.xml",
+    "common/src/main/res/values/colors.xml"
+  ],
+  "menu_sources": [],
+  "fragment_tags": {
+    "step_0": "GuideStatusFragment (引导状态页)",
+    "step_1": "GuideDifficulty1Fragment (难度选择1)",
+    "step_2": "GuideDifficulty2Fragment (难度选择2)",
+    "step_3": "GuideDifficulty3Fragment (难度选择3)",
+    "step_4": "GuideDetailsFragment (引导详情页)",
+    "step_5": "GuideInitFragment (引导初始页)"
+  },
+  "recycler_item_layouts": [],
+  "navigation_targets": {
+    "intent_guideactivity": "GuideActivity",
+    "home": "引导完成 → HomeActivity (在 Fragment 内部逻辑导航)",
+    "navigate_step": "ViewPager2 内部 goToPage(fragment) / goBack() 切换步骤"
+  },
+  "clickable_elements": [
+    "iv_back: 返回上一步"
+  ],
+  "dynamic_menus": {},
+  "bottom_sheet_config": {},
+  "navigation_mode": "WIZARD_STEP",
+  "came_from": "通过静态方法 GuideActivity.openGuidePage() 从外部 Activity 跳入（通常由 HomeActivity 首次启动触发）",
+  "trigger_element": null,
+  "click_path": [],
+  "description": "引导页，ViewPager2 承载 6 个步骤 Fragment（Status→Difficulty1→2→3→Details→Init）。顶部 SeekBar 展示进度 (20→40→60→80→100→120)，返回按钮切换步骤。使用 MMKV 标记引导已展示。"
+}

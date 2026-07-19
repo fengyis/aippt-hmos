@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hierarchy rotation="0" synthesized="true">
+  <node index="0" class="android.widget.layout" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0">
+    <node index="0" class="androidx.constraintlayout.widget.ConstraintLayout" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0">
+      <node index="0" class="com.hjq.bar.TitleBar" resource-id="com.aipptzhizuozz.bjh:id/titleBar" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+      <node index="1" class="com.hjq.shape.view.ShapeEditText" resource-id="com.aipptzhizuozz.bjh:id/ed_search_input" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+      <node index="2" class="androidx.recyclerview.widget.RecyclerView" resource-id="com.aipptzhizuozz.bjh:id/rv_template_list" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="true" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+    </node>
+  </node>
+</hierarchy>

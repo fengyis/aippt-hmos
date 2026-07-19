@@ -1,0 +1,40 @@
+{
+  "page_id": "page_0004_LoginActivity",
+  "label": "登录",
+  "activity": "cn.sanfate.pub.platform.page.LoginActivity",
+  "page_type": "full_screen_page",
+  "confidence": "medium",
+  "auto_generated": true,
+  "view_xml_synthesized": false,
+  "layout_sources": [
+    "app/src/main/platform-res/layout/activity_login.xml"
+  ],
+  "style_sources": [
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "basic/src/main/res/values/colors.xml",
+    "common/src/main/res/values/colors.xml"
+  ],
+  "menu_sources": [],
+  "fragment_tags": {
+    "NetworkConnectChangedReceiver": "NetworkChangedReceiver",
+    "SplashActivity": "AdvertLoad",
+    "CommonRequestInterceptor": "CommonRequestInterceptor",
+    "BaseWXPayEntryActivity": "MicroMsg.SDKSample.WXPayEntryActivity",
+    "WXHandler": "WXHandler",
+    "PhoneNumberAuthServiceImpl": "PhoneNumberAuthService",
+    "MiitHelper": "DemoHelper"
+  },
+  "recycler_item_layouts": [],
+  "navigation_targets": {
+    "intent_loginactivity": "LoginActivity",
+    "WebViewActivity": "cn.sanfate.pub.platform.page.WebViewActivity"
+  },
+  "clickable_elements": [],
+  "dynamic_menus": {},
+  "bottom_sheet_config": {},
+  "navigation_mode": "FULL_SCREEN",
+  "came_from": null,
+  "trigger_element": null,
+  "click_path": []
+}

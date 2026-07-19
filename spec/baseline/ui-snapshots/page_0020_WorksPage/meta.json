@@ -1,0 +1,39 @@
+{
+  "page_id": "page_0020",
+  "label": "作品页",
+  "activity": "com.aipptzhizuozz.bjh.page.WorksPage",
+  "confidence": "medium",
+  "auto_generated": true,
+  "view_xml_synthesized": true,
+  "layout_sources": [
+    "app/src/main/res/layout/page_works.xml"
+  ],
+  "style_sources": [
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "basic/src/main/res/values/colors.xml",
+    "common/src/main/res/values/colors.xml"
+  ],
+  "menu_sources": [],
+  "page_type": "full_screen_page",
+  "fragment_tags": {
+    "NetworkConnectChangedReceiver": "NetworkChangedReceiver",
+    "SplashActivity": "AdvertLoad",
+    "CommonRequestInterceptor": "CommonRequestInterceptor",
+    "BaseWXPayEntryActivity": "MicroMsg.SDKSample.WXPayEntryActivity",
+    "WXHandler": "WXHandler",
+    "PhoneNumberAuthServiceImpl": "PhoneNumberAuthService",
+    "MiitHelper": "DemoHelper"
+  },
+  "recycler_item_layouts": [],
+  "navigation_targets": {
+    "intent_workspage": "WorksPage"
+  },
+  "clickable_elements": [],
+  "dynamic_menus": {},
+  "bottom_sheet_config": {},
+  "navigation_mode": "UNKNOWN",
+  "came_from": null,
+  "trigger_element": null,
+  "click_path": []
+}

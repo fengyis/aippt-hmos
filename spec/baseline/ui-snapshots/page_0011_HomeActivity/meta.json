@@ -1,0 +1,68 @@
+{
+  "page_id": "page_0011",
+  "label": "首页",
+  "activity": "com.aipptzhizuozz.bjh.page.HomeActivity",
+  "page_type": "full_screen_page",
+  "confidence": "medium",
+  "auto_generated": false,
+  "view_xml_synthesized": true,
+  "layout_sources": [
+    "app/src/main/res/layout/activity_home.xml"
+  ],
+  "style_sources": [
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "basic/src/main/res/values/colors.xml",
+    "common/src/main/res/values/colors.xml"
+  ],
+  "menu_sources": [],
+  "fragment_tags": {
+    "tab_0": "HomeFragment (PPT创作)",
+    "tab_1": "RecommendFragment (模版推荐)",
+    "tab_2": "WorksFragment (作品)",
+    "tab_3": "MineFragment (我的)"
+  },
+  "recycler_item_layouts": [],
+  "navigation_targets": {
+    "intent_homeactivity": "HomeActivity",
+    "member_center": "非VIP首次启动时自动弹出 MemberCenterActivitiy 会员中心",
+    "guide": "引导页 GuideActivity.openGuidePage() (已注释)",
+    "login": "未登录时 HomeViewModel.initUser() 触发登录流程"
+  },
+  "clickable_elements": [
+    "tv_create_tab: PPT创作 Tab (HomeFragment)",
+    "tv_template_tab: 模版 Tab (RecommendFragment)",
+    "tv_works_tab: 作品 Tab (WorksFragment)",
+    "tv_mine_tab: 我的 Tab (MineFragment)"
+  ],
+  "dynamic_menus": {},
+  "bottom_sheet_config": {
+    "tabs": [
+      {
+        "index": 0,
+        "label": "PPT创作",
+        "fragment": "HomeFragment"
+      },
+      {
+        "index": 1,
+        "label": "模版",
+        "fragment": "RecommendFragment"
+      },
+      {
+        "index": 2,
+        "label": "作品",
+        "fragment": "WorksFragment"
+      },
+      {
+        "index": 3,
+        "label": "我的",
+        "fragment": "MineFragment"
+      }
+    ]
+  },
+  "navigation_mode": "TAB_SHELL",
+  "came_from": "SplashActivity / GuideActivity 引导完成后进入；或通过静态方法 openHomePage() 从外部跳入",
+  "trigger_element": null,
+  "click_path": [],
+  "description": "应用主首页，ViewPager2 + 底部四 Tab（PPT创作/模版/作品/我的）。每个 Tab 对应一个 Fragment。支持登录状态管理、会员弹框（CampaignDialog/LimitedGiftDialog）、华为/荣耀支付回调、EventBus 事件订阅。双击返回退出提示。"
+}

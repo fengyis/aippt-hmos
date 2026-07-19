@@ -1,0 +1,9 @@
+{
+  "modelVersion": "5.0.0",
+  "description": "AIPPT HarmonyOS App",
+  "dependencies": {},
+  "devDependencies": {
+    "@ohos/hvigor-ohos-plugin": "5.0.0",
+    "@ohos/hvigor": "5.0.0"
+  }
+}

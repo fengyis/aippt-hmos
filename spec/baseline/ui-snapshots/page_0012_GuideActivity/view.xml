@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hierarchy rotation="0" synthesized="true">
+  <node index="0" class="android.widget.layout" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0">
+    <node index="0" class="androidx.constraintlayout.widget.ConstraintLayout" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0">
+      <node index="0" class="android.widget.ImageView" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+      <node index="1" class="androidx.viewpager2.widget.ViewPager2" resource-id="com.aipptzhizuozz.bjh:id/viewPager" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="true" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+      <node index="2" class="android.widget.ImageView" resource-id="com.aipptzhizuozz.bjh:id/iv_back" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+      <node index="3" class="android.widget.SeekBar" resource-id="com.aipptzhizuozz.bjh:id/sb_change" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+    </node>
+  </node>
+</hierarchy>

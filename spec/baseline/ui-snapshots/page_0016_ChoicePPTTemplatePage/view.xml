@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hierarchy rotation="0" synthesized="true">
+  <node index="0" class="android.widget.layout" resource-id="" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0">
+    <node index="0" class="android.widget.FrameLayout" resource-id="com.aipptzhizuozz.bjh:id/fragment_container" text="" content-desc="" bounds="" clickable="false" long-clickable="false" enabled="true" focusable="false" focused="false" scrollable="false" checkable="false" checked="false" selected="false" password="false" display-id="0" />
+  </node>
+</hierarchy>

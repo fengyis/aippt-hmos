@@ -1,0 +1,39 @@
+{
+  "page_id": "page_0007_ShortCutActivity",
+  "label": "快捷方式",
+  "activity": "cn.sanfate.pub.platform.page.ShortCutActivity",
+  "page_type": "modal_overlay",
+  "confidence": "medium",
+  "auto_generated": true,
+  "view_xml_synthesized": false,
+  "layout_sources": [
+    "app/src/main/platform-res/layout/activity_short_cut.xml"
+  ],
+  "style_sources": [
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "basic/src/main/res/values/colors.xml",
+    "common/src/main/res/values/colors.xml"
+  ],
+  "menu_sources": [],
+  "fragment_tags": {
+    "NetworkConnectChangedReceiver": "NetworkChangedReceiver",
+    "SplashActivity": "AdvertLoad",
+    "CommonRequestInterceptor": "CommonRequestInterceptor",
+    "BaseWXPayEntryActivity": "MicroMsg.SDKSample.WXPayEntryActivity",
+    "WXHandler": "WXHandler",
+    "PhoneNumberAuthServiceImpl": "PhoneNumberAuthService",
+    "MiitHelper": "DemoHelper"
+  },
+  "recycler_item_layouts": [],
+  "navigation_targets": {
+    "SplashActivity": "cn.sanfate.pub.platform.page.SplashActivity"
+  },
+  "clickable_elements": [],
+  "dynamic_menus": {},
+  "bottom_sheet_config": {},
+  "navigation_mode": "MODAL_OVERLAY",
+  "came_from": null,
+  "trigger_element": null,
+  "click_path": []
+}
