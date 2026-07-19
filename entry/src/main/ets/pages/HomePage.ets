@@ -53,14 +53,16 @@ struct HomeTabBar {
 
 @Entry
 @ComponentV2
+import { HomeViewModel } from '../viewmodel/HomeViewModel'
+
 struct HomePage {
   @Consumer('navPathStack') navPathStack: NavPathStack = new NavPathStack()
   @Local homeState: HomeState = new HomeState()
+  @Local homeVM: HomeViewModel = new HomeViewModel()
   private lastBackPress: number = 0
 
   aboutToAppear(): void {
-    // FWD-REF: P-S03-001 resolve_by=Slice 3 Step 3c — homeService.initUser() if !isLogin
-    // FWD-REF: P-S03-002 resolve_by=Slice 3 Step 3c — EventHub.on paySuccess → refresh user
+    this.homeVM.initUser()
   }
 
   onBackPress(): boolean {
