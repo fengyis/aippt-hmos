@@ -2,6 +2,7 @@ import { promptAction } from '@kit.ArkUI'
 import { AppTitleBar } from '../components/AppTitleBar'
 import { StepIndicator, StepData } from '../components/StepIndicator'
 import { PptChapter } from '../model/PptModels'
+import { PptViewModel } from '../viewmodel/PptViewModel'
 
 @ObservedV2
 class OutlineState {
@@ -19,18 +20,20 @@ class OutlineState {
 struct CreateOutLinePage {
   @Consumer('navPathStack') navPathStack: NavPathStack = new NavPathStack()
   @Local state: OutlineState = new OutlineState()
+  @Local pptVM: PptViewModel = new PptViewModel()
 
   aboutToAppear(): void {
     this.state.from = 'FROM_TEXT_BOX_CONTENT'
     this.state.query = ''
     this.createOutline()
   }
-  // FWD-REF: P-S04-002 resolve_by=Slice 4 Step 3b — parse route params (query, filePath, from, pptTemplateBeanJson)
 
-  createOutline(): void {
+  async createOutline(): Promise<void> {
     this.state.isCreating = true
     this.state.isCompleted = false
-    // FWD-REF: P-S04-003 resolve_by=Slice 4 Step 3c — pptService.createOutlineByQuery(query)
+    const ok = await this.pptVM.createOutline(this.state.query, this.state.filePath)
+    if (ok) { this.state.chapters = this.pptVM.chapters; this.state.isCompleted = true }
+    this.state.isCreating = false
   }
 
   onChapterTitleChange(index: number, text: string): void {
@@ -41,7 +44,7 @@ struct CreateOutLinePage {
 
   onCreatePPT(): void {
     if (!this.state.isCompleted) { return }
-    // FWD-REF: P-S04-004 resolve_by=Slice 4 Step 3d — checkTextSafe → pushPathByName ChoicePPTTemplatePage
+    this.navPathStack.pushPathByName('ChoicePPTTemplatePage', undefined)
   }
 
   build() {
