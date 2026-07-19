@@ -3,3 +3,8 @@
 .DS_Store
 .hvigor/
 local.properties
+spec/baseline/INDEX.md
+spec/baseline/STAGE_S_ANALYSIS.md
+spec/baseline/CHAIN_VALIDATION.md
+spec/baseline/FINAL_REPORT.md
+spec/baseline/RELEASE_REPORT.md
