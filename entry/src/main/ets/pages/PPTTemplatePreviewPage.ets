@@ -1,6 +1,7 @@
 import { AppTitleBar } from '../components/AppTitleBar'
 import { StepIndicator, StepData } from '../components/StepIndicator'
 import { PPTCoverImage } from '../components/PPTCoverImage'
+import { PptViewModel } from '../viewmodel/PptViewModel'
 
 @ObservedV2
 class TemplatePreviewState {
@@ -15,16 +16,16 @@ class TemplatePreviewState {
 struct PPTTemplatePreviewPage {
   @Consumer('navPathStack') navPathStack: NavPathStack = new NavPathStack()
   @Local state: TemplatePreviewState = new TemplatePreviewState()
+  @Local pptVM: PptViewModel = new PptViewModel()
 
   aboutToAppear(): void {
-    // FWD-REF: P-S04-007 resolve_by=Slice 4 Step 3c — parse pptTemplateBean from route params
-    this.state.covers = []
-    this.state.templateName = '模板预览'
+    this.state.covers = this.pptVM.selectedTemplate?.getCoverList() ?? []
+    this.state.templateName = this.pptVM.selectedTemplate?.templateName ?? '模板预览'
   }
 
-  onGeneratePPT(): void {
+  async onGeneratePPT(): Promise<void> {
     if (this.state.hasOutline) {
-      /* FWD-REF: P-S04-007 resolve_by=Slice 4 Step 3d — generatePPt() directly */
+      await this.pptVM.createPpt()
     } else {
       this.navPathStack.pushPathByName('CreateOutLinePage', undefined)
     }

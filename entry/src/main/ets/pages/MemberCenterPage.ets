@@ -2,6 +2,7 @@ import { promptAction } from '@kit.ArkUI'
 import { AppTitleBar } from '../components/AppTitleBar'
 import { ProductBean } from '../model/ProductBean'
 import { UserDataModel, getUserData } from '../model/UserDataModel'
+import { VipViewModel } from '../viewmodel/VipViewModel'
 
 @ObservedV2
 class VipState {
@@ -19,6 +20,7 @@ struct MemberCenterPage {
   @Consumer('navPathStack') navPathStack: NavPathStack = new NavPathStack()
   @Local state: VipState = new VipState()
   @Local user: UserDataModel = getUserData()
+  @Local vipVM: VipViewModel = new VipViewModel()
 
   aboutToAppear(): void {
     if (this.user.isVip()) {
@@ -29,11 +31,11 @@ struct MemberCenterPage {
     this.loadProducts()
   }
 
-  loadProducts(): void {
+  async loadProducts(): Promise<void> {
     this.state.isLoading = true
     try {
-      // FWD-REF: P-S02-001 resolve_by=Slice 2 Step 3c — VipRepository.fetchProductList()
-      this.state.products = []
+      await this.vipVM.fetchProductList()
+      this.state.products = this.vipVM.products
     } finally {
       this.state.isLoading = false
     }
@@ -43,18 +45,14 @@ struct MemberCenterPage {
     this.state.selectedIndex = index
   }
 
-  onCreateOrder(): void {
+  async onCreateOrder(): Promise<void> {
     if (!this.state.agreementChecked) {
       promptAction.showToast({ message: '请先阅读并同意服务条款和隐私政策' })
       return
     }
-    if (this.state.products.length === 0) {
-      return
-    }
-    // FWD-REF: P-S02-002 resolve_by=Slice 2 Step 3c — createOrder + launch payment SDK
-    // PLACEHOLDER: P-S2-1 resolve_by=Slice 2 Step 3c — WeChat Pay
-    // PLACEHOLDER: P-S2-2 resolve_by=Slice 2 Step 3c — Alipay
-    // PLACEHOLDER: P-S2-3 resolve_by=Slice 2 Step 3c — Huawei Pay
+    if (this.state.products.length === 0) return
+    // PLACEHOLDER: P-S2-1/P-S2-2/P-S2-3 resolve_by=Slice 2 Step 3c — WeChat/Alipay/Huawei Pay SDK
+    await this.vipVM.createOrder()
   }
 
   build() {
