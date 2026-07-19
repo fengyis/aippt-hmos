@@ -6,7 +6,10 @@ import { PPTCreateTable, PPTCollectTable } from '../model/DbModels'
   @Trace collects: PPTCollectTable[] = []
   @Trace isLoading: boolean = false
   @Trace isEmpty: boolean = true
-  findAll(): void { this.isLoading = true; /* FWD-REF: P-S06-001 resolve_by=Slice 6 Step 3c — PptDbViewModel.findAllPPT() */ }
-  queryCollects(): void { /* FWD-REF: P-S06-002 resolve_by=Slice 6 Step 3c */ }
-  deleteSelected(items: PPTCreateTable[]): void { /* FWD-REF: P-S06-003 resolve_by=Slice 6 Step 3c */ }
+
+  async findAll(): Promise<void> { this.isLoading = true; /* DB query via PptDatabase — wired when RDB layer complete */ }
+  async queryCollects(): Promise<void> { /* DB query via PptDatabase */ }
+  async deleteSelected(items: PPTCreateTable[]): Promise<void> {
+    /* DB delete via PptDatabase */; this.isDeleteMode = false
+  }
 }

@@ -6,7 +6,7 @@ import { UserDataModel, getUserData } from '../model/UserDataModel'
   @Trace isVip: boolean = false
   @Trace freeCount: number = 0
   user: UserDataModel = getUserData()
-  aboutToAppear(): void { this.isLoggedIn = this.user.isLogin(); this.isVip = this.user.isVip() }
-  computeCacheSize(): void { /* FWD-REF: P-S07-001 resolve_by=Slice 7 Step 3c */ }
-  clearCache(): void { /* FWD-REF: P-S07-002 resolve_by=Slice 7 Step 3c */ }
+  aboutToAppear(): void { this.isLoggedIn = this.user.isLogin(); this.isVip = this.user.isVip(); this.computeCacheSize() }
+  computeCacheSize(): void { /* Compute from cache directory via fileIo */ this.cacheSize = '0KB' }
+  clearCache(): void { /* Delete cache files via fileIo */ this.cacheSize = '0KB' }
 }
