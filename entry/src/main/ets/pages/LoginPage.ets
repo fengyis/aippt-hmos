@@ -1,6 +1,7 @@
 import { AppStorageV2 } from '@kit.ArkUI'
 import { promptAction } from '@kit.ArkUI'
 import { AppTitleBar } from '../components/AppTitleBar'
+import { AuthViewModel } from '../viewmodel/AuthViewModel'
 
 @ObservedV2
 class LoginState {
@@ -19,6 +20,7 @@ class LoginState {
 struct LoginPage {
   @Consumer('navPathStack') navPathStack: NavPathStack = new NavPathStack()
   @Local state: LoginState = new LoginState()
+  @Local auth: AuthViewModel = new AuthViewModel()
   private phoneController: TextInputController = new TextInputController()
   private codeController: TextInputController = new TextInputController()
   private countdownTimer: number = -1
@@ -51,13 +53,12 @@ struct LoginPage {
     return true
   }
 
-  onGetCode(): void {
-    if (!this.validatePhone(this.state.phoneNumber)) {
-      return
-    }
+  async onGetCode(): Promise<void> {
+    if (!this.validatePhone(this.state.phoneNumber)) { return }
     this.state.isSmsSending = true
     this.state.smsCountdown = 60
     this.startCountdown()
+    await this.auth.sendSms(this.state.phoneNumber)
   }
 
   startCountdown(): void {
@@ -76,21 +77,17 @@ struct LoginPage {
   }
 
   async onLogin(): Promise<void> {
-    if (!this.checkPrivacy()) {
-      return
-    }
+    if (!this.checkPrivacy()) { return }
     if (this.state.phoneNumber.length === 0 || this.state.smsCode.length === 0) {
-      promptAction.showToast({ message: '请输入手机号和验证码' })
-      return
+      promptAction.showToast({ message: '请输入手机号和验证码' }); return
     }
     this.state.isLoggingIn = true
     try {
-      // FWD-REF: P-S01-001 resolve_by=Slice 1 Step 3c — AuthRepository.login(phone, smsCode)
-      this.state.loginSuccess = true
-      this.navPathStack.pop()
-    } catch (error) {
-      const msg = (error instanceof Error) ? error.message : '登录失败'
-      promptAction.showToast({ message: msg })
+      const ok = await this.auth.login(this.state.phoneNumber, this.state.smsCode)
+      if (ok) { this.state.loginSuccess = true; this.navPathStack.pop() }
+      else { promptAction.showToast({ message: this.auth.errorMessage || '登录失败' }) }
+    } catch (_) {
+      promptAction.showToast({ message: '登录失败' })
     } finally {
       this.state.isLoggingIn = false
     }
