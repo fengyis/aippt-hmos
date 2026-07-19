@@ -3,6 +3,25 @@
 > Android → HarmonyOS 迁移工作区：AIPPT。
 > 源项目：/Users/fengyi/Workspace/fengyis/AIPPT（传统 View 体系，含 XML 布局）。
 > Spec baseline 在 `spec/baseline/`；项目决策历史在 `spec/decision-ledger.md`。
+> **模型**: DeepSeek (via ANTHROPIC_BASE_URL)；常规 deepseek-chat，复杂分析切 deepseek-v4-pro。
+
+## Progress
+
+| Layer | Status | Details |
+|-------|--------|---------|
+| a2h-spec | Done | 10 features, 133 ACs, 100% source-traceable |
+| a2h-plan | Done | 15 slices, 4 plans, 27 agents |
+| Code gen | Done | 56 .ets files, 22 pages, 10 ViewModels, 7 components |
+| Build | Next | Open DevEco → generate project → overlay ets/ |
+| Wire | Next | 48 FWD-REF markers → real API calls |
+| Verify | Next | a2h-verify visual comparison |
+
+**Quick commands**:
+```bash
+cd /Users/fengyi/Workspace/fuxi-ailabs/aippt_experiments/aippt-hmos/EXP
+git push origin master    # push to github.com/fengyis/aippt-hmos
+open -a DevEco-Studio     # IDE project setup
+```
 
 ## 决策来源与禁止交互（HARD-GATE）
 
