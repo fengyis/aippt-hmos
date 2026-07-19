@@ -1,4 +1,5 @@
 import { PptTemplateBean, PptChapter, PptOutLineData, PptProgressData, PptResultData } from '../model/PptModels'
+import { PptApiService } from '../service/PptApiService'
 
 @ObservedV2
 export class PptViewModel {
@@ -15,14 +16,62 @@ export class PptViewModel {
   @Trace searchResults: PptTemplateBean[] = []
   @Trace from: string = ''
   @Trace query: string = ''
+  @Trace errorMessage: string = ''
+  @Trace isLoading: boolean = false
+
+  private api: PptApiService = new PptApiService()
 
   async fetchTemplateList(): Promise<void> {
-    // FWD-REF: P-S04-008 resolve_by=Slice 4 Step 3c — PptApiService.fetchTemplateList()
+    this.isLoading = true
+    try {
+      const resp = await this.api.fetchTemplateList()
+      if (resp.isSuccess() && resp.data) {
+        this.templates = resp.data
+      }
+    } finally {
+      this.isLoading = false
+    }
   }
 
-  async createOutline(query: string, filePath: string = ''): Promise<void> {
+  async createOutline(query: string, filePath: string = ''): Promise<boolean> {
     this.isCreatingOutline = true
-    // FWD-REF: P-S04-003 resolve_by=Slice 4 Step 3c — PptApiService.createOutlineByQuery(query)
+    try {
+      const resp = filePath
+        ? await this.api.createOutlineByFile(filePath)
+        : await this.api.createOutlineByQuery(query)
+      if (resp.isSuccess() && resp.data) {
+        this.outline = resp.data
+        this.chapters = resp.data.outline ?? []
+        return true
+      }
+      this.errorMessage = resp.msg || '大纲生成失败'
+      return false
+    } finally {
+      this.isCreatingOutline = false
+    }
+  }
+
+  async createPpt(): Promise<void> {
+    if (!this.outline || !this.selectedTemplate) return
+    this.isCreatingPpt = true
+    try {
+      const resp = await this.api.createPptByOutline(
+        this.query, this.outline.sid, {}, this.selectedTemplate.templateIndexId
+      )
+      if (resp.isSuccess() && resp.data) {
+        this.result = resp.data
+      }
+    } finally {
+      this.isCreatingPpt = false
+    }
+  }
+
+  async queryProgress(): Promise<void> {
+    if (!this.outline) return
+    const resp = await this.api.queryProgress(this.outline.sid)
+    if (resp.isSuccess() && resp.data) {
+      this.progress = resp.data
+    }
   }
 
   filterKeyword(keyword: string): void {
