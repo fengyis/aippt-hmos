@@ -202,7 +202,7 @@ struct LoginPage {
               .width(48).height(48)
             Text('微信').fontSize(11).fontColor('#666666').margin({ top: 4 })
           }
-          .onClick(() => { /* FWD-REF: P-S01-002 resolve_by=Slice 1 Step 3c — bindWx */ })
+          .onClick(() => { /* PLACEHOLDER: WeChat SDK login */ })
           .margin({ right: 40 })
 
           Column() {
@@ -210,7 +210,7 @@ struct LoginPage {
               .width(48).height(48)
             Text('支付宝').fontSize(11).fontColor('#666666').margin({ top: 4 })
           }
-          .onClick(() => { /* FWD-REF: P-S01-003 resolve_by=Slice 1 Step 3c — bindAli */ })
+          .onClick(() => { /* PLACEHOLDER: Alipay SDK login */ })
         }
         .justifyContent(FlexAlign.Center)
         .margin({ top: 28 })
